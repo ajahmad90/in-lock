@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>In Lock — Private media workspace</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="authScreen" class="lock-screen" style="display:none;">
+    <div class="lock-box auth-box">
+      <img class="lock-icon-img" src="logo.png" alt="In Lock logo" />
+      <h1>In Lock</h1>
+      <p class="tagline">Your private media workspace</p>
+
+      <div class="auth-tabs">
+        <button type="button" id="tabSignIn" class="auth-tab active" data-panel="signin">Sign in</button>
+        <button type="button" id="tabSignUp" class="auth-tab" data-panel="signup">Create account</button>
+      </div>
+
+      <form id="authSignIn" class="auth-panel active" autocomplete="on">
+        <label class="field">Email
+          <input id="siEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+        </label>
+        <label class="field">Password
+          <div class="pw-row">
+            <input id="siPassword" type="password" placeholder="Your password" autocomplete="current-password" required>
+            <button type="button" class="pw-toggle" data-target="siPassword">Show</button>
+          </div>
+        </label>
+        <p class="field-error" id="siError"></p>
+        <button type="submit" class="primary">Sign in</button>
+        <p class="auth-switch">New here? <button type="button" data-auth-switch="signup">Create an account</button></p>
+      </form>
+
+      <form id="authSignUp" class="auth-panel" autocomplete="on">
+        <label class="field">Full name
+          <input id="suName" type="text" placeholder="Your name" autocomplete="name" required>
+        </label>
+        <label class="field">Email
+          <input id="suEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+        </label>
+        <label class="field">Password
+          <div class="pw-row">
+            <input id="suPassword" type="password" placeholder="At least 6 characters" autocomplete="new-password" required>
+            <button type="button" class="pw-toggle" data-target="suPassword">Show</button>
+          </div>
+        </label>
+        <label class="field">Confirm password
+          <div class="pw-row">
+            <input id="suConfirm" type="password" placeholder="Re-enter password" autocomplete="new-password" required>
+            <button type="button" class="pw-toggle" data-target="suConfirm">Show</button>
+          </div>
+        </label>
+        <p class="field-error" id="suError"></p>
+        <button type="submit" class="primary">Create account</button>
+        <p class="auth-switch">Already have an account? <button type="button" data-auth-switch="signin">Sign in</button></p>
+      </form>
+
+      <div class="warning">Demo-only auth: accounts and a hashed password are stored in this browser's localStorage — there is no server, so nothing syncs across devices. Please don't reuse an important password here.</div>
+    </div>
+  </div>
+
+  <div id="lockScreen" class="lock-screen" style="display:none;">
+    <div class="lock-box">
+      <img class="lock-icon-img" src="logo.png" alt="In Lock logo" />
+      <h1 id="lockWelcome">Welcome back</h1>
+      <p>Your private media workspace</p>
+      <button class="primary" id="unlockBtn">Unlock workspace</button>
+      <button class="secondary" id="bioBtn">Use biometric (demo)</button>
+      <button class="secondary" id="switchAccountBtn">Not you? Sign out</button>
+      <div class="warning">Browser demo only: this quick-unlock does not re-check your password. Real biometric/lock verification needs a backend/native security layer.</div>
+    </div>
+  </div>
+
+  <div class="app" id="app" hidden>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><div class="brand-mark"><img src="logo.png" alt="In Lock logo"></div><div><strong>In Lock</strong><small>Private workspace</small></div></div>
+      <nav class="nav">
+        <button class="active" data-view="vault">◈ <span>Vault home</span></button>
+        <button data-view="media">▣ <span>Private media</span></button>
+        <button data-view="audio">♫ <span>Audio player</span></button>
+        <button data-view="photo">✦ <span>Photo editor</span></button>
+        <button data-view="video">▶ <span>Video editor</span></button>
+        <button data-view="settings">⚙ <span>Settings</span></button>
+      </nav>
+      <div class="side-note"><b>Privacy status</b>Files stay in this browser tab until you export or refresh. This version does not claim secure vault encryption.</div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="actions"><button class="icon-btn mobile-menu" id="menuBtn">☰</button><div><h1 id="pageTitle">Vault home</h1><p id="pageSubtitle">Your private media, one calm place.</p></div></div>
+        <div class="actions"><button class="icon-btn" id="themeBtn" title="Toggle theme">☼</button><button class="icon-btn" id="lockBtn" title="Lock workspace">⌑</button></div>
+      </header>
+      <div class="content">
+        <section class="view active" id="vault"><div class="hero"><div><div class="eyebrow">Private by design</div><h2>Keep your media close, without the clutter.</h2><p>A polished browser version of the original In Lock concept, with local previews and practical editing tools.</p></div><div class="hero-visual">◈</div></div><div class="grid"><article class="feature" data-open="media"><div><div class="emoji">▣</div><h3>Private media</h3><p>Preview local video and image files in one place.</p></div><div class="open">Open workspace →</div></article><article class="feature" data-open="audio"><div><div class="emoji">♫</div><h3>Audio player</h3><p>Play, seek and control your private audio.</p></div><div class="open">Open player →</div></article><article class="feature" data-open="photo"><div><div class="emoji">✦</div><h3>Photo editor</h3><p>Adjust brightness, contrast, rotate and export copies.</p></div><div class="open">Open editor →</div></article><article class="feature" data-open="video"><div><div class="emoji">▶</div><h3>Video editor</h3><p>Preview, trim with markers and export a browser copy.</p></div><div class="open">Open editor →</div></article></div></section>
+        <section class="view" id="media"><div class="section-head"><div><h2>Private media</h2><p>Choose a local video or image to preview.</p></div><button class="primary" data-picker="mediaFile">+ Choose file</button></div><div class="workspace"><div class="card"><div class="drop" id="mediaDrop"><div>◫<strong>Drop a file here or choose from your device</strong><span>Images and video are supported locally.</span><div class="file-name" id="mediaName"></div></div><input id="mediaFile" type="file" accept="image/*,video/*"></div><img id="imagePreview" hidden alt="Selected preview"><video id="mediaVideo" controls hidden></video><div class="status">Original files are never overwritten by this demo. Use the editor sections to create a new exported copy.</div></div><div class="card"><h3>Playback notes</h3><p style="color:var(--muted);font-size:13px">The browser handles playback directly. For a production vault, copy imports to encrypted private storage before showing them.</p><div class="tool-list"><button data-toast="Import flow is ready for a backend storage adapter.">＋ Import safely</button><button data-toast="Metadata view can be connected to your vault index.">⌁ View metadata</button></div></div></div></section>
+        <section class="view" id="audio"><div class="section-head"><div><h2>Audio player</h2><p>Simple, responsive playback with local file selection.</p></div><button class="primary" data-picker="audioFile">+ Choose audio</button></div><div class="workspace"><div class="card"><div class="drop"><div>♫<strong>Select a private audio file</strong><span>MP3, WAV, M4A and browser-supported formats.</span><div class="file-name" id="audioName"></div></div><input id="audioFile" type="file" accept="audio/*"></div><audio id="audioPlayer" controls hidden></audio><div class="controls"><button class="secondary" id="skipBack">↶ 10s</button><button class="secondary" id="skipForward">10s ↷</button><button class="secondary" id="repeatBtn">Repeat: off</button></div></div><div class="card"><h3>Audio tools</h3><div class="tool-list"><button data-toast="Playback speed control is available through the native player menu.">◷ Playback speed</button><button data-toast="An equalizer can be connected to Web Audio API in the next iteration.">⌁ Equalizer</button><button data-toast="Export keeps the original file untouched.">⇩ Export a copy</button></div></div></div></section>
+        <section class="view" id="photo"><div class="section-head"><div><h2>Photo editor</h2><p>Non-destructive adjustments; the original stays untouched.</p></div><button class="primary" data-picker="photoFile">+ Select photo</button></div><div class="workspace"><div class="card"><div class="photo-stage"><canvas id="photoCanvas" width="800" height="520"></canvas><div id="photoEmpty" class="media-empty">Choose a photo to start editing</div></div><input id="photoFile" type="file" accept="image/*" hidden><div class="adjust"><label>Brightness <input id="brightness" type="range" min="50" max="150" value="100"><output>100%</output></label><label>Contrast <input id="photoContrast" type="range" min="50" max="150" value="100"><output>100%</output></label><label>Rotate <input id="rotate" type="range" min="-180" max="180" value="0"><output>0°</output></label></div><div class="controls"><button class="secondary" id="resetPhoto">Reset</button><button class="primary" id="savePhoto">Save edited copy</button></div></div><div class="card"><h3>More tools</h3><div class="tool-list"><button data-toast="Crop mode is prepared as an extension point; use rotate and export for now.">⌗ Crop &amp; rotate</button><button data-toast="Background removal needs a segmentation model; this entry point is intentionally honest.">✧ Background remove</button><button data-toast="Your adjustment values apply live to the preview.">◒ Brightness / contrast</button></div></div></div></section>
+        <section class="view" id="video"><div class="section-head"><div><h2>Video editor</h2><p>Preview a video, mark a segment and export a playable copy.</p></div><button class="primary" data-picker="videoFile">+ Select video</button></div><div class="workspace"><div class="card"><input id="videoFile" type="file" accept="video/*" hidden><div class="drop" id="videoDrop"><div>▶<strong>Select a private video</strong><span>Playback and trim markers run locally in your browser.</span><div class="file-name" id="videoName"></div></div></div><video id="videoEditor" controls hidden></video><div class="adjust"><label>Start <input id="videoStart" type="range" min="0" max="100" value="0"><output>0%</output></label><label>End <input id="videoEnd" type="range" min="0" max="100" value="100"><output>100%</output></label></div><div class="controls"><button class="secondary" id="muteVideo">Mute audio</button><button class="secondary" id="playSegment">Play segment</button><button class="primary" id="exportVideo">Export encrypted copy</button></div></div><div class="card"><h3>Editing notes</h3><p style="color:var(--muted);font-size:13px">The Android source listed Media3 Transformer, but did not connect it. In the browser, true re-encoding needs WebCodecs or a server worker; this demo therefore exports the original file safely instead of pretending it is encrypted.</p></div></div></section>
+        <section class="view" id="settings"><div class="section-head"><div><h2>Appearance &amp; privacy</h2><p>Make your workspace feel right.</p></div></div><div class="settings-grid"><div class="setting"><div class="toggle"><div><h3>Dark theme</h3><p>Switch between calm dark and bright light modes.</p></div><button class="switch on" id="themeSwitch"><i></i></button></div></div><div class="setting"><h3>Contrast</h3><p>Improve text and control visibility.</p><input class="range" id="contrastRange" type="range" min="80" max="130" value="100"><div id="contrastLabel" style="color:var(--muted);font-size:13px;margin-top:8px">100%</div></div><div class="setting"><h3>Account</h3><p>Signed in as</p><p id="accountEmail">—</p><button class="danger" id="signOutBtn">Sign out</button></div><div class="setting"><h3>Auto-lock</h3><p>Lock the workspace when you are done.</p><button class="secondary" data-toast="Auto-lock preference saved for this demo.">Set timeout</button></div><div class="setting"><h3>Security boundary</h3><p>Sign up/sign in now runs entirely client-side (SHA-256-hashed passwords in this browser's localStorage). Add a real backend, encrypted storage, secure export, biometric/WebAuthn and screenshot protection before storing sensitive media for real.</p><button class="danger" data-toast="Security checklist copied to your implementation notes.">View checklist</button></div></div></section>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
